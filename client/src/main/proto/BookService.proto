@@ -1,0 +1,29 @@
+//the same as at the server's side
+
+syntax = "proto3";
+import "google/protobuf/empty.proto";
+
+option java_multiple_files = true;
+package com.example.bookstore.service;
+
+message BookRequest {
+  string title = 1;
+  string author = 2;
+  string isbn = 3;
+  int32 quantity = 4;
+}
+
+message BookDto {
+  string id = 1;
+  string title = 2;
+  string author = 3;
+  string isbn = 4;
+  int32 quantity = 5;
+}
+
+service BookService {
+  rpc create(BookRequest) returns (BookDto);
+  rpc getAll(BookRequest) returns (stream BookDto);
+  rpc update(BookDto) returns (google.protobuf.Empty);
+  rpc delete(BookDto) returns (google.protobuf.Empty);
+}
