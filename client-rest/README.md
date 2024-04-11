@@ -2,6 +2,11 @@
 
 I haven't put a lot of effort at this, so this API could be easily broken. Consider this just as Proof Of Concept
 
+### Execution
+
+``./gradlew bootRun``
+
+
 ### Example requests
 
 ---
