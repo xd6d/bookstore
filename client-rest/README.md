@@ -4,7 +4,7 @@ I haven't put a lot of effort at this, so this API could be easily broken. Consi
 
 ### Execution
 
-``./gradlew bootRun``
+``./gradlew clean bootRun``
 
 
 ### Example requests
@@ -13,7 +13,7 @@ I haven't put a lot of effort at this, so this API could be easily broken. Consi
 
 #### Create book's record
 ```
-POST localhost:8080/book
+POST localhost:8080/api/book
 
 Content-Type: application/json
 
@@ -43,7 +43,7 @@ Expected Response:
 
 #### Get all books matching example
 ```
-GET localhost:8080/book
+GET localhost:8080/api/book
 
 Content-Type: application/json
 
@@ -86,7 +86,7 @@ Expected Response:
 
 #### Update book's record
 ```
-PUT localhost:8080/book
+PUT localhost:8080/api/book
 
 Content-Type: application/json
 
@@ -109,7 +109,7 @@ Expected Response:
 
 #### Delete book's record
 ```
-DELETE localhost:8080/book
+DELETE localhost:8080/api/book
 
 Content-Type: application/json
 
