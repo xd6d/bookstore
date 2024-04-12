@@ -6,6 +6,7 @@ import "google/protobuf/empty.proto";
 option java_multiple_files = true;
 package com.example.bookstore.service;
 
+//Is used as a request parameter when client needs to specify which data he wants to store/retrieve.
 message BookRequest {
   string title = 1;
   string author = 2;
@@ -13,6 +14,7 @@ message BookRequest {
   int32 quantity = 4;
 }
 
+//Is used to transfer data. It could be used as a request parameter or as a response.
 message BookDto {
   string id = 1;
   string title = 2;
