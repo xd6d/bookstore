@@ -14,7 +14,6 @@ public class BookServiceGrpcImpl implements BookService {
     @GrpcClient("bookstore-client")
     private BookServiceGrpc.BookServiceBlockingStub stub;
 
-
     @Override
     public Book create(Book book) {
         return toBook(stub.create(toBookRequest(book)));
