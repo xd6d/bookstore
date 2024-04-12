@@ -27,7 +27,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 @Import(TestContainerConfiguration.class)
 @CitrusSupport
-public class BookServiceIT {
+class BookServiceIT {
 
     private static final Book EXAMPLE_BOOK = BookUtils.getDefaultBook();
 
