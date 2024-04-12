@@ -5,6 +5,7 @@ import com.example.bookstore.mappers.BookMapper;
 import com.example.bookstore.model.Book;
 import com.google.protobuf.Empty;
 import io.grpc.stub.StreamObserver;
+import jakarta.persistence.EntityExistsException;
 import lombok.RequiredArgsConstructor;
 import net.devh.boot.grpc.server.service.GrpcService;
 import org.springframework.data.domain.Example;
@@ -19,6 +20,9 @@ public class BookService extends BookServiceGrpc.BookServiceImplBase {
 
     @Override
     public void create(BookRequest request, StreamObserver<BookDto> responseObserver) {
+        if (bookRepository.findByIsbn(request.getIsbn()).isPresent()) {
+            throw new EntityExistsException("Book with isbn %s already exists".formatted(request.getIsbn()));
+        }
         Book created = bookRepository.save(bookMapper.toEntity(request));
         responseObserver.onNext(bookMapper.toDto(created));
         responseObserver.onCompleted();
