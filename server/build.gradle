@@ -2,7 +2,7 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '3.2.4'
     id 'io.spring.dependency-management' version '1.1.4'
-    id "com.google.protobuf" version "0.9.4"
+    id 'com.google.protobuf' version '0.9.4'
 }
 
 group = 'com.example'
@@ -22,8 +22,16 @@ repositories {
     mavenCentral()
 }
 
+ext {
+    grpcVersion = '1.62.2'
+    mapstructVersion = '1.5.5.Final'
+    citrusVersion = '4.2.0'
+    grpcSpringVersion = '3.0.0.RELEASE'
+}
+
 dependencies {
-    implementation 'net.devh:grpc-server-spring-boot-starter:3.0.0.RELEASE'
+    implementation "net.devh:grpc-server-spring-boot-starter:${grpcSpringVersion}"
+    testImplementation "net.devh:grpc-client-spring-boot-starter:${grpcSpringVersion}"
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.postgresql:postgresql'
     compileOnly 'org.projectlombok:lombok'
@@ -32,11 +40,17 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.boot:spring-boot-testcontainers'
     testImplementation 'org.testcontainers:junit-jupiter'
-    implementation 'org.mapstruct:mapstruct:1.5.5.Final'
-    annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.5.Final'
-    runtimeOnly 'io.grpc:grpc-netty-shaded:1.49.2'
-    implementation 'io.grpc:grpc-protobuf:1.49.2'
-    implementation 'io.grpc:grpc-stub:1.49.2'
+    testImplementation 'org.testcontainers:postgresql'
+    implementation "org.mapstruct:mapstruct:$mapstructVersion"
+    annotationProcessor "org.mapstruct:mapstruct-processor:$mapstructVersion"
+    runtimeOnly "io.grpc:grpc-netty-shaded:$grpcVersion"
+    implementation "io.grpc:grpc-protobuf:$grpcVersion"
+    implementation "io.grpc:grpc-stub:$grpcVersion"
+    testImplementation "io.grpc:grpc-testing:$grpcVersion"
+    testImplementation group: 'org.citrusframework', name: 'citrus-base', version: "$citrusVersion"
+    testImplementation group: 'org.citrusframework', name: 'citrus-spring', version: "$citrusVersion"
+    testImplementation "org.citrusframework:citrus-sql:${citrusVersion}"
+    testImplementation "org.citrusframework:citrus-junit5:$citrusVersion"
     if (JavaVersion.current().isJava9Compatible()) {
         compileOnly 'org.apache.tomcat:annotations-api:6.0.53'
         annotationProcessor "jakarta.annotation:jakarta.annotation-api"

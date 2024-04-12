@@ -20,7 +20,7 @@ public class BookService extends BookServiceGrpc.BookServiceImplBase {
     @Override
     public void create(BookRequest request, StreamObserver<BookDto> responseObserver) {
         Book created = bookRepository.save(bookMapper.toEntity(request));
-        responseObserver.onNext(bookMapper.toResponse(created));
+        responseObserver.onNext(bookMapper.toDto(created));
         responseObserver.onCompleted();
     }
 
@@ -28,7 +28,7 @@ public class BookService extends BookServiceGrpc.BookServiceImplBase {
     public void getAll(BookRequest request, StreamObserver<BookDto> responseObserver) {
         bookRepository.findAll(Example.of(bookMapper.toEntity(request), getBookExampleMatcher()))
                 .stream()
-                .map(bookMapper::toResponse)
+                .map(bookMapper::toDto)
                 .forEach(responseObserver::onNext);
         responseObserver.onCompleted();
     }
