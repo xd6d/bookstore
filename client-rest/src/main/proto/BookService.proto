@@ -1,4 +1,4 @@
-//the same as at the server's side
+//the same as at the server's side. Better look at the server's side proto
 
 syntax = "proto3";
 import "google/protobuf/empty.proto";
