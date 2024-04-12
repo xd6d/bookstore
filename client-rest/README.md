@@ -4,7 +4,7 @@ I haven't put a lot of effort at this, so this API could be easily broken. Consi
 
 ### Execution
 
-``./gradlew bootRun``
+``./gradlew clean bootRun``
 
 
 ### Example requests
