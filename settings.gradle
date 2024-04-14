@@ -1,3 +1,4 @@
 rootProject.name = 'bookstore'
 include 'server'
 include 'client-rest'
+include 'proto'
