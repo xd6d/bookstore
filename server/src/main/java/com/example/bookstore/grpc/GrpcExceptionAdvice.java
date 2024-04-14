@@ -1,4 +1,4 @@
-package com.example.bookstore;
+package com.example.bookstore.grpc;
 
 import io.grpc.Status;
 import jakarta.persistence.EntityExistsException;

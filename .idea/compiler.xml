@@ -9,7 +9,8 @@
           <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.mapstruct/mapstruct-processor/1.5.5.Final/897f6f115930b936287bef552bf5fe28cc64717d/mapstruct-processor-1.5.5.Final.jar" />
           <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/jakarta.annotation/jakarta.annotation-api/2.1.1/48b9bda22b091b1f48b13af03fe36db3be6e1ae3/jakarta.annotation-api-2.1.1.jar" />
         </processorPath>
-        <module name="server.main" />
+        <module name="bookstore.server.main" />
+        <module name="bookstore.client-rest.main" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>

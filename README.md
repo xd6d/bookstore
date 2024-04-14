@@ -10,7 +10,7 @@ It starts gRPC Server at localhost:9090.
 
 #### Client
 
-Optionally, you can start REST client which will accept HTTP requests at localhost:8080, forward them to gRPC Server 
+Optionally, you can start REST client which will accept HTTP requests at localhost:8081, forward them to gRPC Server 
 mentioned above and return you JSON responses.
 
 ``./gradlew -p client-rest clean bootRun``
