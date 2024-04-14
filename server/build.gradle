@@ -64,10 +64,6 @@ dependencies {
     testImplementation group: 'org.citrusframework', name: 'citrus-spring', version: "$citrusVersion"
     testImplementation "org.citrusframework:citrus-sql:${citrusVersion}"
     testImplementation "org.citrusframework:citrus-junit5:$citrusVersion"
-    if (JavaVersion.current().isJava9Compatible()) {
-        compileOnly 'org.apache.tomcat:annotations-api:6.0.53'
-        annotationProcessor "jakarta.annotation:jakarta.annotation-api"
-    }
 }
 
 protobuf {
@@ -89,6 +85,19 @@ protobuf {
         all()*.plugins {
             grpc {}
             reactor {}
+        }
+    }
+}
+
+sourceSets {
+    main {
+        proto {
+            srcDir "../proto"
+        }
+    }
+    test {
+        proto {
+            srcDir "../proto"
         }
     }
 }
