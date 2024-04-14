@@ -1,61 +1,16 @@
 package com.example.bookstore.service;
 
-import com.example.bookstore.dao.BookRepository;
-import com.example.bookstore.mappers.BookMapper;
 import com.example.bookstore.model.Book;
-import com.google.protobuf.Empty;
-import io.grpc.stub.StreamObserver;
-import jakarta.persistence.EntityExistsException;
-import lombok.RequiredArgsConstructor;
-import net.devh.boot.grpc.server.service.GrpcService;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.ExampleMatcher;
 
-@GrpcService
-@RequiredArgsConstructor
-public class BookService extends BookServiceGrpc.BookServiceImplBase {
+import java.util.List;
 
-    private final BookRepository bookRepository;
-    private final BookMapper bookMapper;
+public interface BookService {
 
-    @Override
-    public void create(BookRequest request, StreamObserver<BookDto> responseObserver) {
-        if (bookRepository.findByIsbn(request.getIsbn()).isPresent()) {
-            throw new EntityExistsException("Book with isbn %s already exists".formatted(request.getIsbn()));
-        }
-        Book created = bookRepository.save(bookMapper.toEntity(request));
-        responseObserver.onNext(bookMapper.toDto(created));
-        responseObserver.onCompleted();
-    }
+    Book create(Book book);
 
-    @Override
-    public void getAll(BookRequest request, StreamObserver<BookDto> responseObserver) {
-        bookRepository.findAll(Example.of(bookMapper.toEntity(request), getBookExampleMatcher()))
-                .stream()
-                .map(bookMapper::toDto)
-                .forEach(responseObserver::onNext);
-        responseObserver.onCompleted();
-    }
+    List<Book> getAllMatching(Book book);
 
-    @Override
-    public void update(BookDto request, StreamObserver<Empty> responseObserver) {
-        bookRepository.save(bookMapper.toEntity(request));
-        responseObserver.onNext(Empty.getDefaultInstance());
-        responseObserver.onCompleted();
-    }
+    void update(Book book);
 
-    @Override
-    public void delete(BookDto request, StreamObserver<Empty> responseObserver) {
-        bookRepository.delete(bookMapper.toEntity(request));
-        responseObserver.onNext(Empty.getDefaultInstance());
-        responseObserver.onCompleted();
-    }
-
-    private ExampleMatcher getBookExampleMatcher() {
-        return ExampleMatcher.matching()
-                .withIgnorePaths("id", "quantity")
-                .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING)
-                .withIgnoreCase()
-                .withIgnoreNullValues();
-    }
+    void delete(Book book);
 }

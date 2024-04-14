@@ -36,11 +36,14 @@ ext {
     mapstructVersion = '1.5.5.Final'
     citrusVersion = '4.2.0'
     grpcSpringVersion = '3.0.0.RELEASE'
+    reactiveGrpcVersion = '1.2.4'
 }
 
 dependencies {
     implementation "net.devh:grpc-server-spring-boot-starter:${grpcSpringVersion}"
     testImplementation "net.devh:grpc-client-spring-boot-starter:${grpcSpringVersion}"
+    implementation "com.salesforce.servicelibs:reactor-grpc-stub:${reactiveGrpcVersion}"
+    implementation 'org.springframework.boot:spring-boot-starter-webflux:3.2.4'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.postgresql:postgresql'
     compileOnly 'org.projectlombok:lombok'
@@ -75,12 +78,16 @@ protobuf {
     }
     plugins {
         grpc {
-            artifact = "io.grpc:protoc-gen-grpc-java:1.0.0-pre2"
+            artifact = "io.grpc:protoc-gen-grpc-java:${grpcVersion}"
+        }
+        reactor {
+            artifact = "com.salesforce.servicelibs:reactor-grpc:${reactiveGrpcVersion}"
         }
     }
     generateProtoTasks {
         all()*.plugins {
             grpc {}
+            reactor {}
         }
     }
 }
